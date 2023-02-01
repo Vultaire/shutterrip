@@ -1,0 +1,28 @@
+# PREREQUISITE: Download the appropriate Chromedriver for your platform, extract it and place it in a known location.
+# On Windows, use single quotes for this value to ensure \'s are not interpreted as escape sequences.
+
+chromedriver_path: 'C:\Users\YourUser\Downloads\chromedriver_win32\chromedriver.exe'
+
+
+# Fill in your Shutterfly credentials here
+
+email: "YOUR_SHUTTERFLY_LOGIN"
+password: "YOUR_SHUTTERFLY_PASSWORD"
+
+
+# Provide a list of site addresses.
+# This requires some work by you since the script doesn't do this part for you.
+#
+# * Log into shutterfly
+# * Open the share site you want to download from
+# * Click on "Pictures & Video"
+# * Click on the "Pictures" header.  (This is just a little bit above the first album shown.)
+#   If you don't do this, you may miss some albums!
+# * Copy the current URL to the below list.
+#
+# Basically, you'll end up with something like "https://yoursite1.shutterfly.com/pictures/8".
+
+site_links:
+  - "https://yoursite1.shutterfly.com/pictures/8"
+  - "https://yoursite2.shutterfly.com/pictures/8"
+  - "https://yoursite3.shutterfly.com/pictures/8"
