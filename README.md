@@ -41,7 +41,7 @@ SITE_LINK/
 
 It automatically sanitizes the site, album and metadata strings in an NTFS-friendly way.  It
 should easily run on Windows and non-Windows systems, as long as there is a Python 3 interpreter
-available to run the script. 
+available to run the script.
 
 ## Who this is NOT for
 
@@ -100,3 +100,24 @@ You will also require Google Chrome (or Chromium) to be installed, as well as an
 version of Chromedriver, which is how Selenium controls Google Chrome in this script.  Specify
 the path to the Chromedriver executable in config.yaml.  If on Windows, make sure to use single
 quotes around the string so the \ characters are not escaped.
+
+## Notes about reliability
+
+Note that this script is known not to work flawlessly - if pages take too long to render, or
+downloads take too long to run, or in some other corner cases which haven't fully been teased
+out, it is known to fail.  I have coded in resume and retry logic to mitigate this, but please
+keep in mind that this is effectively a quick hack for a personal problem I had to solve in
+short order.  Feel free to improve upon this if you need.  That being said, it was good enough
+for me to be able to download over 13,000 files off the shares I needed to pull files from.
+
+Also note that this doesn't automatically search for all possible folders of albums on a share
+site - you need to provide the URLs to the pages providing the albums; the script will recurse
+from there to pull the albums and their pictures.
+
+## Notes about Shutterfly terms of service
+
+I do not know if this violates Shutterfly's terms of service.  It is not my intention to do so.
+While I think it would be very unfortunate for something like this to be deemed against their
+TOS, especially as share sites do not appear to allow for any sort of multiple file download
+functionality, please note that use of this script is at your own risk and I take no
+responsibility if use of this script is seen as such a violation.
