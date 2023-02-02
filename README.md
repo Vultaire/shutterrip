@@ -1,14 +1,30 @@
 # shutterrip.py: A Shutterfly Share Sites Download Tool
 
+## License
+
+    shutterrip.py: A Shutterfly share sites downloading script.
+    Copyright (C) 2023 Paul Goins
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+See LICENSE.txt to see the full license text.
+
 ## Who this is for
 
 This is for people who are affected by the upcoming shutdown of Shutterfly share sites
 who have pictures they wish to download, but who don't want to go through and download
-them one-by-one.
+them one-by-one.  This script will effectively do so for you, using Python-driven
+browser automation via the Selenium library and Chromedriver.
 
 ## What does it do
-
-Using Selenium and chromedriver.exe, it manages the tedium for you:
 
 It:
  * Logs into Shutterfly
@@ -19,13 +35,14 @@ It:
 Pictures are downloaded into a file structure which looks something like this:
 
 ```
-SITE/
+SITE_LINK/
   [#]_ALBUM/
     [#]_<METADATA>.jpg
 ```
 
-It automatically sanitizes album and metadata strings to work as NTFS file names
-(for the Windows users out there), 
+It automatically sanitizes the site, album and metadata strings in an NTFS-friendly way.  It
+should easily run on Windows and non-Windows systems, as long as there is a Python 3 interpreter
+available to run the script. 
 
 ## Who this is NOT for
 
@@ -41,14 +58,46 @@ You should also be comfortable reading or at least skimming source code.  This c
 Shutterfly credentials and logs in using them.  Don't trust random code off the Internet for
 this job!  Read the code and only use it if you feel comfortable with what the code is doing!!!
 
+If you need to download videos, note that this script is not designed for that; you will need
+to write code to extend this script.
+
 Again, there is NO WARRANTY and NO SUPPORT for this code in any way, shape or form!
 
 (I'm sharing this upon request of a coworker, and while I'm happy if others find use in it, I have
 no intent of replying to any issues filed with it.)
 
-
 ## Usage notes
 
+### The "Too long; didn't read" version
 
+Copy config.yaml.example to config.yaml, update it as necessary, and download Chromedriver if you
+don't already have it.  Install the prerequisites in requirements.txt, then run "python shutterrip.py"
+(or "python3 shutterrip.py") with no arguments.
 
-To be written
+### Specifying site links
+
+The main use case for this is for downloading the "Pictures" section from the "Pictures & Videos"
+tab of a share site.  If you click on "Pictures & Video", you will be taken to a summary page
+which may or may not have all your albums available; click the "Pictures" header to be taken to the
+"Pictures" subsection.  (For the share sites I've cloned, the URL for this page typically ends in
+"/pictures/8" rather than just "/pictures".)  You will want to copy this URL into config.yaml under
+the "site_links" section.
+
+It can also be used for other folders containing pictures.  Navigate to whatever page contains the
+albums you wish to download, then ensure that all the albums you wish to download can be shown from
+that page.  Like above, copy the URL into the config.yaml under "site_links".
+
+I have not tried to download any videos, so while it may work for video sections as well, I have not
+tested this.
+
+### Other requirements
+
+You will need to provide your Shutterfly email and password in config.yaml.  As doing so with
+untrusted code is potentially dangerous, please **READ THE SOURCE CODE** and judge for yourself
+whether you trust this script to use your credentials.  Again, there is NO WARRANTY on this script
+and any risk in running it is assumed by the user.
+
+You will also require Google Chrome (or Chromium) to be installed, as well as an appropriate
+version of Chromedriver, which is how Selenium controls Google Chrome in this script.  Specify
+the path to the Chromedriver executable in config.yaml.  If on Windows, make sure to use single
+quotes around the string so the \ characters are not escaped.

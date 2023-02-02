@@ -1,3 +1,17 @@
+"""shutterrip.py: A Shutterfly share sites downloading script.
+Copyright (C) 2023 Paul Goins
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+"""
+
 import json
 import os
 import shutil
@@ -70,7 +84,8 @@ def download_site(driver, tmpdir, site_link):
     # Get all album links
     links = [element.get_attribute("href") for element in
              driver.find_elements(By.CSS_SELECTOR, "div.pic-album-hdr a.pic-album-title")]
-    site_name = urlparse(site_link).hostname
+    parsed_site_link = urlparse(site_link)
+    site_name = sanitize_name(parsed_site_link.netloc + parsed_site_link.path)
     for album_index, album_link in enumerate(links):
         download_album(driver, tmpdir, site_name, album_index, album_link)
 
